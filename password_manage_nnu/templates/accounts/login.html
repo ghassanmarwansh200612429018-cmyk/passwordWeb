@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<section class="min-h-[85vh] flex items-center py-20">
+    <div class="max-w-md mx-auto w-full px-4">
+        <div class="glass-card p-8 animate-fade-in-up opacity-0" style="animation-fill-mode:forwards;">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div
+                    class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                        </path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold">Welcome Back</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Sign in to access your vault</p>
+            </div>
+
+            <!-- Form -->
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div>
+                    <label for="id_login_username" class="block text-sm font-medium mb-1.5">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="id_login_password" class="block text-sm font-medium mb-1.5">Password</label>
+                    <div class="relative">
+                        {{ form.password }}
+                        <button type="button" data-toggle-password="id_login_password"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                <div class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                    <p class="text-red-600 dark:text-red-400 text-sm">{{ form.non_field_errors.0 }}</p>
+                </div>
+                {% endif %}
+
+                <button type="submit"
+                    class="glow-btn w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+                Don't have an account? <a href="{% url 'register' %}"
+                    class="text-blue-500 dark:text-purple-400 font-medium hover:underline">Sign Up</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

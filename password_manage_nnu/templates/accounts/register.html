@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<section class="min-h-[85vh] flex items-center py-20">
+    <div class="max-w-md mx-auto w-full px-4">
+        <div class="glass-card p-8 animate-fade-in-up opacity-0" style="animation-fill-mode:forwards;">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div
+                    class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                        </path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold">Create Account</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Join PassManNNU and secure your passwords</p>
+            </div>
+
+            <!-- Form -->
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div>
+                    <label for="id_username" class="block text-sm font-medium mb-1.5">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="id_email" class="block text-sm font-medium mb-1.5">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="id_password" class="block text-sm font-medium mb-1.5">Password</label>
+                    <div class="relative">
+                        {{ form.password }}
+                        <button type="button" data-toggle-password="id_password"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="id_password_confirm" class="block text-sm font-medium mb-1.5">Confirm Password</label>
+                    {{ form.password_confirm }}
+                    {% if form.password_confirm.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.password_confirm.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Passkey -->
+                <div class="pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <label for="id_passkey" class="block text-sm font-medium mb-1.5">
+                        Vault Passkey
+                        <span class="text-xs text-gray-400 font-normal ml-1">(for edit/delete operations)</span>
+                    </label>
+                    {{ form.passkey }}
+                    <p class="text-xs text-gray-400 mt-1">Remember this passkey — you'll need it to edit or delete vault
+                        entries.</p>
+                    {% if form.passkey.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ form.passkey.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit"
+                    class="glow-btn w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+                Already have an account? <a href="{% url 'login' %}"
+                    class="text-blue-500 dark:text-purple-400 font-medium hover:underline">Sign In</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
